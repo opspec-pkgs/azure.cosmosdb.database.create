@@ -1,0 +1,20 @@
+name: build
+description: builds the package
+inputs:
+  pkg:
+    dir:
+      default: .
+outputs:
+  pkg:
+    dir: {}
+run:
+  serial:
+    - op:
+        pkg: { ref: test }
+        inputs: { pkg }
+    - op:
+        pkg: { ref: github.com/opspec-pkgs/_.pkg.generate-readme#1.0.2 }
+        inputs:
+          srcDir: $(pkg)
+        outputs:
+          srcDir: $(pkg)
